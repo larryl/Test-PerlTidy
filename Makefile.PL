@@ -20,4 +20,9 @@ WriteMakefile(
         'Test::More'    => '0',
         'Text::Diff'    => '0'
     },
+    META_MERGE => {
+        resources => {
+	    repository  => 'git://github.com/larryl/Test-PerlTidy.git',
+        },
+    },
 );
