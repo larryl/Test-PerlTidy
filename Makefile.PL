@@ -11,7 +11,7 @@ WriteMakefile(
     PREREQ_PM    => {
         'Carp'          => '0',
         'File::Finder'  => '0',
-        'File::Slurp'   => '0',
+        'Path::Tiny'    => '0',
         'File::Spec'    => '0',
         'IO::File'      => '0',
         'parent'        => '0',

@@ -2,6 +2,7 @@ package Test::PerlTidy;
 
 use strict;
 use warnings;
+use English qw( -no_match_vars );
 
 use parent 'Exporter';
 
@@ -10,7 +11,7 @@ use vars qw( @EXPORT );    ## no critic (Modules::ProhibitAutomaticExportation)
 
 use Carp;
 use File::Finder;
-use File::Slurp;
+use Path::Tiny qw( path );
 use File::Spec;
 use IO::File;
 use Perl::Tidy;
@@ -67,7 +68,11 @@ sub is_file_tidy {
 
     # If there were perltidy errors report them and return.
     $stderr_fh->seek( 0, 0 );
-    my $stderr = read_file($stderr_fh);
+    binmode $stderr_fh, ':encoding(UTF-8)' or croak "error setting binmode $!";
+    my $stderr = do {
+        local $INPUT_RECORD_SEPARATOR = undef;
+        <$stderr_fh>;
+    };
     if ($stderr) {
         unless ($MUTE) {
             $test->diag("perltidy reported the following errors:\n");
@@ -167,7 +172,7 @@ sub load_file {
     return unless -f $filename;
 
     # Slurp the file.
-    my $content = read_file($filename);
+    my $content = path($filename)->slurp_utf8;
     return $content;
 }
 
