@@ -175,6 +175,8 @@ sub load_file {
 
 __END__
 
+=for stopwords Hmmm perltidy cvs perltidyrc subdirectories listref canonified pre von der Leszczynski perl
+
 =head1 NAME
 
 Test::PerlTidy - check that all your files are tidy.
