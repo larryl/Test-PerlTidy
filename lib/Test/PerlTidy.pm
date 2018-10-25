@@ -129,6 +129,9 @@ sub list_files {
 
     my $finder = File::Finder->type('f')->name(qr{[.](?:pl|pm|PL|t)$});
     $finder->{options}->{untaint} = 1;
+    $finder->{options}->{untaint_pattern} =
+      qr{^((\p{IsAlphabetic}:)?[-+@\w./~[(][)] ]+)$}x ## no critic (Variables::ProhibitPunctuationVars)
+      if $OSNAME eq 'MSWin32';
     my @files = $finder->in($path);
 
     my %keep = map { File::Spec->canonpath($_) => 1 } @files;
