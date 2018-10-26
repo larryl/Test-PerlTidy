@@ -118,8 +118,6 @@ sub list_files {
 
     $path ||= q{.};
 
-    $test->BAIL_OUT('You need to specify which directory to scan') unless $path;
-
     $test->BAIL_OUT(qq{The directory "$path" does not exist}) unless -d $path;
 
     my $excludes = $args{exclude} || ['blib/'];    # exclude blib by default
